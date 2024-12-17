@@ -8,21 +8,24 @@ This repository shares my experience and learning in the VLSI Chip Design "Desig
 * Virtual box(to create a virtual os Ubuntu 18.04)
 # using ubuntu 
 
+  * We first start by opening ubuntu via virtual box.
+
 ![Screenshot 2024-12-17 140541](https://github.com/user-attachments/assets/3f3498cd-a1a1-4ec2-901a-d967e7ecd51a)
 
- A new terminal window was opened
- and the following code was typed to install gedit
+  * A new terminal window was opened,
+     and the following code was typed to install gedit.
  
- ` sudo apt install gedit`
+       *  ` sudo apt install gedit`
  
 ![Screenshot 2024-12-17 140853](https://github.com/user-attachments/assets/6a10b01b-ed55-42fc-ba3a-adb175987583)
 
  
- using the installed gedit tool as follows
+  * using the installed gedit tool as follows
  
-![Screenshot 2024-12-17 141005](https://github.com/user-attachments/assets/aeeeaebb-d898-4622-8743-f41af0888305)
+![Screenshot 2024-12-17 141005](https://github.com/user-attachments/assets/04a0a95f-ab17-4543-b8c1-9a74f33de796)
 
-the following code was written and stored in opened file
+
+  * The following code was written and stored in .c format file
 
 ```
 #include<stdio.h>
@@ -38,13 +41,79 @@ int main(){
 }
 ```
 
-![Screenshot 2024-12-17 142904](https://github.com/user-attachments/assets/68a8aaa5-73a0-496a-a306-a088ae672743)
 
+![Screenshot 2024-12-17 142133](https://github.com/user-attachments/assets/b5fbf5f2-9e4e-4ce7-8a0c-6d602e4ceb74)
 
+* This following code gives the sum from one to (any chosen number of your choice)
+ * These two comands in terminal to run the code
+   * `gcc {file name}.c`
+   * `./a.out`
 
+  ![Screenshot 2024-12-17 142904](https://github.com/user-attachments/assets/4e460bd8-7456-470e-ab87-34c735486f57)
 
- 
+#Using RISC-V architecture
+ The two codes required to do so are listed as follows;-
+ * ``riscv64-unknown-elf-gcc -O1 -mabi=lp64 -march=rv64i -o {filename}.o {filename}.c``
+ * ``iscv64-unknown-elf-objdump -d {filename}.o``
 
+  The results were as follows
   
+![Screenshot 2024-12-17 143436](https://github.com/user-attachments/assets/c9cc9f70-1f59-48e4-97a8-424c9334ecd8)
+
+
+
+# Openlane
+ Openlane a opensource software was used to preview and design the chip virtually and can even be used to optimise the chip
+ *Firstly the current working directory was changed to Openlane using the 
+   following code along with opening the docker .
+   `cd Desktop/work/tools/openlane_working_dir/openlane`
+   `package require openlane 0.9`
+   `prep -design picorv32a`
+   
+   
+   ![Screenshot 2024-12-17 143656](https://github.com/user-attachments/assets/276fa607-c0ef-4d0e-b606-05fbacb48e54)
+   ![Screenshot 2024-12-17 143805](https://github.com/user-attachments/assets/839f4582-caba-4459-b235-45942bd3c186)
+
+* The following command was run to sythesize the digital I.C.
+  ` run_synthesis`
+  and the results are as follows 
+
+
+![Screenshot 2024-12-17 144116](https://github.com/user-attachments/assets/f11d9684-69eb-4496-8db9-6d7f190645da)
+
+* Then  starting the floorplan stage using the following command
+* `run_floorplan`
+* the output of which is given as
+  
+![Screenshot 2024-12-17 144214](https://github.com/user-attachments/assets/5334cb62-34b3-45dd-a0d1-991d7e1d641d)
+
+* Then opening a tab in terminal the following code run
+`eog designs/picorv32a/runs/{press tab as it varies from device to device}/results/floorplan/picorv32a.floorplan.def.png`
+* This results in opening a png of the floorplan of the I.C.
+   
+
+![Screenshot 2024-12-17 150416](https://github.com/user-attachments/assets/40c9d4d8-e06b-4ac6-8b40-0aad6cfba804)
+
+* Then the placement stage was run using the following command .
+* `run_placement`
+* Which results in a output as given in the following screenshot
+  
+![Screenshot 2024-12-17 150524](https://github.com/user-attachments/assets/c4a0efb7-ec47-4bb9-adb8-3a113d7f65ff)
+
+
+ * The img of the floorplan was viewed by the following command
+ * `eog designs/picorv32a/runs/{press tab as it varies from device to device}/results/placement/picorv32a.placement.def.png`
+
+![Screenshot 2024-12-17 150808](https://github.com/user-attachments/assets/2a0519a3-40dd-4135-a225-bb85aab6f0c4)
+
+* Then we check for  Clock Tree Synthesis (CTS) to check the clock distribution of the I.C.
+  `run_cts`
+  ![Screenshot 2024-12-17 151054](https://github.com/user-attachments/assets/289fae0c-32a7-464d-b0af-197aa1c091f7)
+
+  *Checking the routing of the virtual I.C. which creates the physical interconnections that make up the logic and clock paths of the design.
+  `run_routing`
+![Screenshot 2024-12-17 152915](https://github.com/user-attachments/assets/c8f5738e-b3d9-42e8-9e44-fea5e7577219)
+
+Hence we have tested the chip and it can be send to a manufacturer.
   
   
